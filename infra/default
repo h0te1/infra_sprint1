@@ -1,0 +1,48 @@
+server{
+
+    listen 80;
+    server_name practestlittybot.ddns.net;
+
+    location /api/ {
+        include proxy_params;
+        proxy_pass http://127.0.0.1:8080;
+    }
+
+    location /admin/ {
+        include proxy_params;
+        proxy_pass http://127.0.0.1:8080;
+    }
+
+    location /media/ {
+        root /var/www/kittygram;
+    }
+
+    location / {
+        root /var/www/kittygram;
+        index index.html index.htm;
+        try_files $uri /index.html;
+    }
+
+}
+
+server {
+
+    listen 80;
+    server_name taskieducationserv.ddns.net;
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:8000;
+    }
+
+    location /admin/ {
+        proxy_pass http://127.0.0.1:8000;
+    }
+
+
+    location / {
+        root   /var/www/taski;
+        index  index.html index.htm;
+        try_files $uri /index.html;
+    }
+
+}
