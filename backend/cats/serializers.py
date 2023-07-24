@@ -1,12 +1,9 @@
 import base64
+import webcolors
+import datetime as dt
 
 from django.core.files.base import ContentFile
 from rest_framework import serializers
-import webcolors
-
-
-import datetime as dt
-
 from .models import Achievement, AchievementCat, Cat
 
 
@@ -45,13 +42,15 @@ class CatSerializer(serializers.ModelSerializer):
     color = Hex2NameColor()
     age = serializers.SerializerMethodField()
     image = Base64ImageField(required=False, allow_null=True)
-    image_url = serializers.SerializerMethodField('get_image_url', read_only=True)
+    image_url = serializers.SerializerMethodField(
+        'get_image_url', read_only=True
+        )
 
     class Meta:
         model = Cat
         fields = (
-            'id', 'name', 'color', 'birth_year', 'achievements', 'owner', 'age',
-            'image', 'image_url'
+            'id', 'name', 'color', 'birth_year', 'achievements', 'owner',
+            'age', 'image', 'image_url'
             )
         read_only_fields = ('owner',)
 
